@@ -41,43 +41,21 @@ const SearchMovies = () => {
       const items = await response.json();
       console.log(items);
 
+      //create a new array in order to map values
       const newArr = Object.values(items);
-      // const newArr = Array.from(items);
-      console.log(newArr);
-
-      
-
-           //loop over the object
-      // for (const entry of Object.entries(items)) {
-      //   const keyValue = `${entry[0]}: "${entry[1]}"`
-      //   console.log(keyValue);
-      // }
-      //push to the array
-      
-
-      // const movieData = Object.entries(items).map((movie) => ({  
-      const movieData = newArr.map((movie) => ({  
+      // const movieArr = newArr[0];
+      console.log(newArr);   
+ 
+      const movieData = [{  
         movieId: newArr[0],
-        title: newArr[0] || 'Titanic',
-        year: newArr[1] || '1997',
-        description: newArr[9] || 'Plot',
+        title: newArr[0],
+        year: newArr[1],
+        description: newArr[9],
         image: newArr[13] || '',
-      }));
+      }];
+
       console.log(movieData);
 
-
-      
-      // const movieId= items.id;
-      // const title= items.Title || 'Titanic';
-      // const year= items.Year || '1997';
-      // const description= items.Plot || 'Plot';
-      // const image= items.Poster || '';
-
-      // console.log(movieId);
-      // console.log(title);
-      // console.log(year);
-      // console.log(description);
-      // console.log(image);
 
       setSearchedMovies(movieData);
       setSearchInput('');
@@ -137,28 +115,28 @@ const SearchMovies = () => {
       <Container>
         <h2>
           {searchedMovies.length
-            ? `Viewing ${searchedMovies.length} results:`
-            : 'Search for a movie above to see results'}
+            ? `Viewing ${searchedMovies.length} result:`
+            : 'Search for a movie in the search bar above to see results'}
         </h2>
         <CardColumns>
-        {searchedMovies.map((movieData) => {
+        {searchedMovies.map((movie) => {
             return (
-              <Card key={movieData.movieId} border='dark'>
-                {movieData.image ? (
-                  <Card.Img src={movieData.image} alt={`The cover for ${movieData.title}`} variant='top' />
+              <Card key={movie.movieId} border='dark'>
+                {movie.image ? (
+                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
-                  <Card.Title>{movieData.title}</Card.Title>
-                  <p className='small'>Year: {movieData.year}</p>
-                  <Card.Text>{movieData.description}</Card.Text>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <p className='small'>Year: {movie.year}</p>
+                  <Card.Text>{movie.description}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movieData.movieId)}
+                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
                       className='btn-block btn-info'
-                      onClick={() => handleSaveMovie(movieData.movieId)}>
-                      {savedMovieIds?.some((savedMovieId) => savedMovieId === movieData.movieId)
-                        ? 'This movie has already been saved!'
-                        : 'Save this movie!'}
+                      onClick={() => handleSaveMovie(movie.movieId)}>
+                      {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
+                        ? 'This movie has already been nominated!'
+                        : 'Nominate this movie!'}
                     </Button>
                   )}
                 </Card.Body>

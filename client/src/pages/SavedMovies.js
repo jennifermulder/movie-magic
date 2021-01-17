@@ -26,7 +26,7 @@ const SavedMovies = () => {
 
     try {
       //movieId passed in handledeletemovie
-      const response = await removeMovie({ variables: { movieId } });
+      const response = await removeMovie({variables:{movieId}});
 
       removeMovieId(movieId);
     } catch (err) {
@@ -45,7 +45,7 @@ const SavedMovies = () => {
         <h2>
           {userData.savedMovies?.length
             ? `Viewing ${userData.savedMovies.length} saved ${userData.savedMovies.length === 1 ? 'movie' : 'movies'}:`
-            : 'You have no saved movies!'}
+            : 'You have not nominated any movies! Return to "Search for Movies" in order to make a nomination.'}
         </h2>
         <CardColumns>
           {userData.savedMovies?.map((movie) => {
@@ -57,7 +57,7 @@ const SavedMovies = () => {
                   <p className='small'>Year: {movie.year}</p>
                   <Card.Text>{movie.description}</Card.Text>
                   <Button className='btn-block btn-warning' onClick={() => handleDeleteMovie(movie.movieId)}>
-                    Delete this movie!
+                    Remove this nomination!
                   </Button>
                 </Card.Body>
               </Card>

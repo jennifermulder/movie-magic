@@ -52,7 +52,5 @@ export const deleteMovie = (movieId, token) => {
 
 // make a search to OMDB movies api
 export const searchOmdbMovies = (query) => {
-  // return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
-  return fetch(`http://www.omdbapi.com/?apikey=afefa757&t=titanic`);
-  // return fetch(`http://www.omdbapi.com/?apikey=afefa757&t=${query}`);
+  return fetch(`http://www.omdbapi.com/?apikey=afefa757&t=${query}`);
 };
