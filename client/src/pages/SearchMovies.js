@@ -18,8 +18,6 @@ const SearchMovies = () => {
 
   const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
-  // set up useEffect hook to save `savedMovieIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => saveMovieIds(savedMovieIds);
   });
@@ -38,16 +36,48 @@ const SearchMovies = () => {
       if (!response.ok) {
         throw new Error('something went wrong!');
       }
+      
+      // const items = await response.json();
+      const items = await response.json();
+      console.log(items);
 
-      const { items } = await response.json();
+      const newArr = Object.values(items);
+      // const newArr = Array.from(items);
+      console.log(newArr);
 
-      const movieData = items.map((movie) => ({
-        movieId: movie.id,
-        title: movie.Title,
-        year: movie.Year,
-        description: movie.Plot,
-        image: movie.Poster || '',
+      
+
+           //loop over the object
+      // for (const entry of Object.entries(items)) {
+      //   const keyValue = `${entry[0]}: "${entry[1]}"`
+      //   console.log(keyValue);
+      // }
+      //push to the array
+      
+
+      // const movieData = Object.entries(items).map((movie) => ({  
+      const movieData = newArr.map((movie) => ({  
+        movieId: newArr[0],
+        title: newArr[0] || 'Titanic',
+        year: newArr[1] || '1997',
+        description: newArr[9] || 'Plot',
+        image: newArr[13] || '',
       }));
+      console.log(movieData);
+
+
+      
+      // const movieId= items.id;
+      // const title= items.Title || 'Titanic';
+      // const year= items.Year || '1997';
+      // const description= items.Plot || 'Plot';
+      // const image= items.Poster || '';
+
+      // console.log(movieId);
+      // console.log(title);
+      // console.log(year);
+      // console.log(description);
+      // console.log(image);
 
       setSearchedMovies(movieData);
       setSearchInput('');
@@ -111,16 +141,42 @@ const SearchMovies = () => {
             : 'Search for a movie above to see results'}
         </h2>
         <CardColumns>
+        {searchedMovies.map((movieData) => {
+            return (
+              <Card key={movieData.movieId} border='dark'>
+                {movieData.image ? (
+                  <Card.Img src={movieData.image} alt={`The cover for ${movieData.title}`} variant='top' />
+                ) : null}
+                <Card.Body>
+                  <Card.Title>{movieData.title}</Card.Title>
+                  <p className='small'>Year: {movieData.year}</p>
+                  <Card.Text>{movieData.description}</Card.Text>
+                  {Auth.loggedIn() && (
+                    <Button
+                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movieData.movieId)}
+                      className='btn-block btn-info'
+                      onClick={() => handleSaveMovie(movieData.movieId)}>
+                      {savedMovieIds?.some((savedMovieId) => savedMovieId === movieData.movieId)
+                        ? 'This movie has already been saved!'
+                        : 'Save this movie!'}
+                    </Button>
+                  )}
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </CardColumns>
+        {/* <CardColumns>
           {searchedMovies.map((movie) => {
             return (
               <Card key={movie.movieId} border='dark'>
                 {movie.image ? (
-                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
+                  <Card.Img key={movie.Poster} src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
-                  <Card.Title>{movie.title}</Card.Title>
-                  <p className='small'>Year: {movie.year}</p>
-                  <Card.Text>{movie.description}</Card.Text>
+                  <Card.Title key={movie.Title}>{movie.title}</Card.Title>
+                  <p key={movie.Year} className='small'>Year: {movie.year}</p>
+                  <Card.Text key={movie.Plot} >{movie.description}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
@@ -135,7 +191,7 @@ const SearchMovies = () => {
               </Card>
             );
           })}
-        </CardColumns>
+        </CardColumns> */}
       </Container>
     </>
   );
