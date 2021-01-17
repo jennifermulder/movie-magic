@@ -7,7 +7,7 @@ export const getSavedMovieIds = () => {
 };
 
 export const saveMovieIds = (movieIdArr) => {
-  if (movieIdArr.length) {
+  if (movieIdArr.length && 'saved_movies' < 6) {
     localStorage.setItem('saved_movies', JSON.stringify(movieIdArr));
   } else {
     localStorage.removeItem('saved_movies');

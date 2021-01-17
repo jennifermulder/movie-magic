@@ -1,6 +1,7 @@
 # OMDB Movie Search
 
 ![](client/src/assets/images/movie-magic.jpg)
+![](client/src/assets/images/movie-magic.1.jpg)
 
 ## Purpose
 To create an application that provides a "Search and Save" for various movies using OMDB API utilizing an Appolo server and GraphQL in lieu of RESTful APIs.
@@ -24,7 +25,7 @@ When the user loads the server, they are presented with a search bar where they 
 To run program: node server
 
 ## Deployed Application
-
+https://movie-magic-2020.herokuapp.com/
 
 ## Project Status
 This OMDB Movie Search is complete in adherence with acceptance criteria
