@@ -27,7 +27,7 @@ To run program: node server
 
 
 ## Project Status
-This ONDB Movie Search is complete in adherence with acceptance criteria
+This OMDB Movie Search is complete in adherence with acceptance criteria
 
 ## Contribution
 Created by Jennifer Mulder

@@ -17,7 +17,7 @@ type User {
 
 type Movie {
   movieId: ID
-  authors: [String]
+  year: String
   description: String
   title: String
   image: String
@@ -41,7 +41,7 @@ type Mutation {
 }
 
 input movieInput {
-  authors: [String]
+  year: String
   description: String!
   movieId: String
   image: String 

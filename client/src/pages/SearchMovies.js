@@ -3,12 +3,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { searchGoogleMovies } from '../utils/API';
+import { searchOmdbMovies } from '../utils/API';
 import { saveMovieIds, getSavedMovieIds } from '../utils/localStorage';
 import { SAVE_MOVIE } from '../utils/mutations';
 
 const SearchMovies = () => {
-  // create state for holding returned google api data
+  // create state for holding returned OMDB api data
   const [searchedMovies, setSearchedMovies] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
@@ -33,7 +33,7 @@ const SearchMovies = () => {
     }
 
     try {
-      const response = await searchGoogleMovies(searchInput);
+      const response = await searchOmdbMovies(searchInput);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -43,10 +43,10 @@ const SearchMovies = () => {
 
       const movieData = items.map((movie) => ({
         movieId: movie.id,
-        authors: movie.volumeInfo.authors || ['No author to display'],
-        title: movie.volumeInfo.title,
-        description: movie.volumeInfo.description,
-        image: movie.volumeInfo.imageLinks?.thumbnail || '',
+        title: movie.Title,
+        year: movie.Year,
+        description: movie.Plot,
+        image: movie.Poster || '',
       }));
 
       setSearchedMovies(movieData);
@@ -91,11 +91,11 @@ const SearchMovies = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type='text'
                   size='lg'
-                  placeholder='Search for a movie'
+                  placeholder='ie: Titanic'
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button type='submit' variant='success' size='lg'>
+                <Button type='submit' variant='primary' size='lg'>
                   Submit Search
                 </Button>
               </Col>
@@ -108,7 +108,7 @@ const SearchMovies = () => {
         <h2>
           {searchedMovies.length
             ? `Viewing ${searchedMovies.length} results:`
-            : 'Search for a movie to begin'}
+            : 'Search for a movie above to see results'}
         </h2>
         <CardColumns>
           {searchedMovies.map((movie) => {
@@ -119,7 +119,7 @@ const SearchMovies = () => {
                 ) : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p className='small'>Authors: {movie.authors}</p>
+                  <p className='small'>Year: {movie.year}</p>
                   <Card.Text>{movie.description}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button

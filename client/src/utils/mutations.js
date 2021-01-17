@@ -32,7 +32,7 @@ export const SAVE_MOVIE = gql`
       movieCount
       savedMovies{
         movieId
-        authors
+        year
         description
         title
         image
@@ -50,7 +50,7 @@ export const REMOVE_MOVIE = gql`
       movieCount
       savedMovies{
         movieId
-        authors
+        year
         description
         title
         image
