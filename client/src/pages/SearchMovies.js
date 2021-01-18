@@ -144,32 +144,6 @@ const SearchMovies = () => {
             );
           })}
         </CardColumns>
-        {/* <CardColumns>
-          {searchedMovies.map((movie) => {
-            return (
-              <Card key={movie.movieId} border='dark'>
-                {movie.image ? (
-                  <Card.Img key={movie.Poster} src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
-                ) : null}
-                <Card.Body>
-                  <Card.Title key={movie.Title}>{movie.title}</Card.Title>
-                  <p key={movie.Year} className='small'>Year: {movie.year}</p>
-                  <Card.Text key={movie.Plot} >{movie.description}</Card.Text>
-                  {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveMovie(movie.movieId)}>
-                      {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
-                        ? 'This movie has already been saved!'
-                        : 'Save this movie!'}
-                    </Button>
-                  )}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </CardColumns> */}
       </Container>
     </>
   );
