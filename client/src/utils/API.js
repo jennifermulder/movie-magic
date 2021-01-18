@@ -52,5 +52,5 @@ export const deleteMovie = (movieId, token) => {
 
 // make a search to OMDB movies api
 export const searchOmdbMovies = (query) => {
-  return fetch(`http://www.omdbapi.com/?apikey=afefa757&t=${query}`);
+  return fetch(`https://www.omdbapi.com/?apikey=afefa757&t=${query}`);
 };

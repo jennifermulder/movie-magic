@@ -39,13 +39,10 @@ const SearchMovies = () => {
       
       // const items = await response.json();
       const items = await response.json();
-      console.log(items);
-
+    
       //create a new array in order to map values
       const newArr = Object.values(items);
-      // const movieArr = newArr[0];
-      console.log(newArr);   
- 
+        
       const movieData = [{  
         movieId: newArr[0],
         title: newArr[0],
@@ -53,9 +50,6 @@ const SearchMovies = () => {
         description: newArr[9],
         image: newArr[13] || '',
       }];
-
-      console.log(movieData);
-
 
       setSearchedMovies(movieData);
       setSearchInput('');

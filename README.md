@@ -25,7 +25,7 @@ When the user loads the server, they are presented with a search bar where they 
 To run program: node server
 
 ## Deployed Application
-https://movie-magic-2020.herokuapp.com/
+https://movie-magic-2021.herokuapp.com/
 
 ## Project Status
 This OMDB Movie Search is complete in adherence with acceptance criteria
